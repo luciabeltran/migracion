@@ -1,3 +1,5 @@
+#AUTOR: Luc铆a Beltr谩n Rocha
+#email:beltranrochalucia@gmail.com
 library(caTools)
 library(ggplot2)
 library(Epi)
@@ -38,7 +40,7 @@ split = sample.split(log.reg$MotivoBaja,SplitRatio=.75)
 log.train= subset(log.reg,split==T)
 log.test= subset(log.reg,split==F)
 
-####IDENTIFICACI覰 DE LAS VARIABLES PREDICTORAS MAS SIGNIFICATIVAS DE ACUERDO A SU GRUPO
+####IDENTIFICACI脫N DE LAS VARIABLES PREDICTORAS MAS SIGNIFICATIVAS DE ACUERDO A SU GRUPO
 
 # EVALUACION DE LOS MODELOS FINALES CON LAS VARIABLES MAS SIGNIFICATIVAS DE LOS DIFERENTES MOMENTOS DEL DESERTOR
 
@@ -57,8 +59,8 @@ modelo.reg.log.df3 = glm(MotivoBaja ~   edad +  matematico  + Becapromedio  +
                            AniosUniversidad ,data = log.train, family = binomial)
 summary(modelo.reg.log.df3)
 
-# Comparaci髇 de los modelos
-screenreg(list(modelo.reg.log.df1, modelo.reg.log.df2, modelo.reg.log.df3), caption="Comparaci髇 de modelos logit")
+# Comparaci贸n de los modelos
+screenreg(list(modelo.reg.log.df1, modelo.reg.log.df2, modelo.reg.log.df3), caption="Comparaci贸n de modelos logit")
 
   #Comparacion del AIC de los modelos
   models <- list(modelo.reg.log.df1, modelo.reg.log.df2, modelo.reg.log.df3)
@@ -67,7 +69,7 @@ screenreg(list(modelo.reg.log.df1, modelo.reg.log.df2, modelo.reg.log.df3), capt
   aictab(cand.set = models, modnames = model.names)
 
 
-#EVALUACION DE DESEMPE袿 DEL MODELO FINAL
+#EVALUACION DE DESEMPE脩O DEL MODELO FINAL
 modelo.reg.log.df = modelo.reg.log.df1
 
 
@@ -75,16 +77,16 @@ modelo.reg.log.df = modelo.reg.log.df1
 confint(modelo.reg.log.df)
 coefplot(modelo.reg.log.df)  + 
   theme_minimal() + 
-  labs(title="Estimaci髇 de coeficientes con error estandar", 
-       x="Estimaci髇", 
+  labs(title="Estimaci贸n de coeficientes con error estandar", 
+       x="Estimaci贸n", 
        y="Variable", 
-       caption="Migraci髇 a otros campus")
+       caption="Migraci贸n a otros campus")
 
-#Tabla y gr醘ico de efectos totales promedio
+#Tabla y gr谩fico de efectos totales promedio
 allEffects(modelo.reg.log.df)
 plot(allEffects(modelo.reg.log.df))
 #labs(title="Variables dependientes del modelo", 
- #        caption="Modelo predictivo de migraci髇 a otros campus")
+ #        caption="Modelo predictivo de migraci贸n a otros campus")
 
 #Predicciones del valor esperado en el set de entrenamiento
 predict.train.log = predict(modelo.reg.log.df,newdata = log.train, type = "response")
@@ -98,7 +100,7 @@ confusion<-table(log.test$MotivoBaja,predict.log > .5)
 confusion
 
 fourfoldplot(confusion, color = c("red", "green"),
-             conf.level = 0, margin = 1, main = "Matriz de confusi髇")
+             conf.level = 0, margin = 1, main = "Matriz de confusi贸n")
 
 #confusionMatrix((predict.log),(log.test))
 
@@ -137,30 +139,30 @@ sum(height*width)
 ROC(log.test$MotivoBaja,predict.log > .5,plot = "ROC")
 
 #Accuracy
-#Exactitud (acurracy) se refiere a cu醤 cerca del valor real se encuentra el valor medido.  
+#Exactitud (acurracy) se refiere a cu谩n cerca del valor real se encuentra el valor medido.  
 # (VP+VN)/(VP+FP+FN+VN)
 exactitud <- sum(diag)/ n
 exactitud
 (truepos+trueneg)/n
 
 #Precision
-#precisi髇 (precision) se refiere a la dispersi髇 del conjunto de valores obtenidos
-#de mediciones repetidas de una magnitud.  Cuanto menor es la dispersi髇 mayor la precisi髇
+#precisi贸n (precision) se refiere a la dispersi贸n del conjunto de valores obtenidos
+#de mediciones repetidas de una magnitud.  Cuanto menor es la dispersi贸n mayor la precisi贸n
 #(VP)/(VP+FP)
 precision<- diag/colsums
 precision
 truepos/(truepos+falsepos)
 
 #Sensibilidad
-#Sensibilidad (recall) se refiere a la respuesta que el instrumento de medici髇 
-#tenga para medir una variable y que tan r醦ida sea este para estabilizar su medida.  
+#Sensibilidad (recall) se refiere a la respuesta que el instrumento de medici贸n 
+#tenga para medir una variable y que tan r谩pida sea este para estabilizar su medida.  
 #VP/(VP+VN)
 sensibilidad <- diag/ rowsums
 sensibilidad
 truepos/(truepos+trueneg)
 
 #Especificidad
-#Tambi閚 conocida como la Tasa de Verdaderos Negativos, ("true negative rate") o TN. Se 
+#Tambi茅n conocida como la Tasa de Verdaderos Negativos, ("true negative rate") o TN. Se 
 #trata de los casos negativos que el algoritmo ha clasificado correctamente.  Expresa cuan bien puede el modelo detectar esa clase.
 #Se calcula:  VN/(VN+FP)
 especificidad<-trueneg/(trueneg+falsepos)
@@ -169,7 +171,7 @@ especificidad
 
 
 #F-valor
-#F-Valor (F-measure) medida de precisi髇 que tiene una prueba.  
+#F-Valor (F-measure) medida de precisi贸n que tiene una prueba.  
 #F1 =2*(precision*recall)/(precision+recall)=tp/(tp+1/2(fp+fn) ),  siendo un modelo perfecto cuando F1=1.
 #2*(precision*sensibilidad)/(precision+sensibilidad)
 f1 <- 2*precision*sensibilidad / (precision+sensibilidad)
@@ -177,7 +179,7 @@ f1
 f1<- truepos/(truepos+(1/(2*(falsepos+falseneg))))
 f1
 
-#Coeficiente phi asociaci髇 entre dos variables binarias, va de -1 a 1.  
+#Coeficiente phi asociaci贸n entre dos variables binarias, va de -1 a 1.  
 
 
 #Tabla de evaluacion del modelo
@@ -193,7 +195,7 @@ data.frame(macroPrecision, macroExactitud, macroF1)
 pred <- ifelse(modelo.reg.log.df$fitted.values < 0.5, 0, 1)
 Accuracy(log.train,pred,2)
 
-# OTROS GR罠ICOS
+# OTROS GR脕FICOS
 
 rocr.pred = prediction(predict.log, log.test$MotivoBaja)
 rocr.perf = performance(rocr.pred, "tpr", "fpr")
