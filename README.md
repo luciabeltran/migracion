@@ -1,3 +1,4 @@
 # migracion-intercampus
 Recursos de software sobre la investigación de migración multicampus de un Sistema educativo privado
-Regresión logística 
+Aprendizaje automático
+Algortimo supervisado de clasificación: Regresión logística 
